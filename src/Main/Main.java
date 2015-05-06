@@ -135,6 +135,7 @@ public class Main {
 		opt("patchlog writing");
 		FileWriter plog = new FileWriter("patchlog.txt");
 		patchNo = patchLog.size()+1;
+		patchNoS = String.format("%s%03d", Date, patchNo - 1);
 		for (String a : patchLog) {
 			String strt = getPatchNo();
 			opt("patchLog write: " + strt + a);
@@ -147,7 +148,13 @@ public class Main {
 
 		plog.close();
 		opt("patchlog寫入\n");
-		log.close();
+		log.close();		
+
+		FileWriter fw = new FileWriter("Version");
+		fw.write(String.format("%s %s.%s.%s", Vstr, MVersion, SVersion,
+				patchNoS));
+		fw.close();
+		opt("New Ver: " + Vstr + MVersion + SVersion + patchNoS);
 
 		label.setText("完成");
 
@@ -241,7 +248,7 @@ public class Main {
 
 	public static boolean filter(String f) {
 		String[] str = { "Lister.jar", "log", "desktop.ini", "patchlog.txt",
-				"FileList", "Launch.vbe", "Launcher.jar" };
+				"FileList", "Launch.vbe", "Launcher.jar", "啟動器.jar", "LauncherCore.jar" };
 		for (String s : str) {
 			if (f.equals(s)) {
 				opt("  ::filter: " + f + " match: " + s);
@@ -302,15 +309,6 @@ public class Main {
 						now.get(Calendar.DAY_OF_MONTH));
 				opt("Calendar event done: " + Date);
 
-
-
-				FileWriter fw = new FileWriter("Version");
-				patchNoS = String.format("%s%03d", Date, patchNo);
-				fw.write(String.format("%s %s.%s.%s", Vstr, MVersion, SVersion,
-						patchNoS));
-
-				fw.close();
-				opt("New Ver: " + Vstr + MVersion + SVersion + patchNoS);
 				return 1;
 
 			} else {
