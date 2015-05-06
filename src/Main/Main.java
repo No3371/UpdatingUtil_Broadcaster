@@ -136,8 +136,9 @@ public class Main {
 		FileWriter plog = new FileWriter("patchlog.txt");
 		patchNo = patchLog.size()+1;
 		for (String a : patchLog) {
-			opt("patchLog write: " + getPatchNo() + a);
-			plog.write(getPatchNo() + a + "\n");
+			String strt = getPatchNo();
+			opt("patchLog write: " + strt + a);
+			plog.write(strt + a + "\n");
 		}
 		for (String a : PpatchLog) {
 			opt("(Previous) patchLog write: " + a);
