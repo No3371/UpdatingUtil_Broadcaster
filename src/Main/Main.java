@@ -145,10 +145,7 @@ public class Main {
 			opt("(Previous) patchLog write: " + a);
 			plog.write(a + "\n");
 		}
-
-		plog.close();
-		opt("patchlog寫入\n");
-		log.close();		
+	
 
 		FileWriter fw = new FileWriter("Version");
 		fw.write(String.format("%s %s.%s.%s", Vstr, MVersion, SVersion,
@@ -156,6 +153,10 @@ public class Main {
 		fw.close();
 		opt("New Ver: " + Vstr + MVersion + SVersion + patchNoS);
 
+		plog.close();
+		opt("patchlog寫入\n");
+		log.close();	
+		
 		label.setText("完成");
 
 		p.setReadOnly();
@@ -260,7 +261,7 @@ public class Main {
 	}
 
 	public static boolean cmpProcess(String fp) throws IOException {
-		if (oldFile == null || fp == "Version")
+		if (oldFile == null || fp.equals("Version"))
 			return false;
 		label.setText("比較" + fp + "與" + pDir + fp);
 		opt("    ::Comparing: " + fp + " ||| " + pDir + fp);
@@ -363,11 +364,17 @@ public class Main {
 			File lver = new File("Version");
 			if (!lver.exists()) {
 				opt("Version Not Found");
-				label.setText("找不到版本資訊。");
+				label.setText("找不到版本資訊。");					
+				
+				Vstr = "New";
+				MVersion = "0";
+				SVersion = "00";
+				
 				return null;
 			}
+			
 			opt("Got Version file");
-			String str = null;
+			String str;
 			String[] tstr = new String[5];
 
 			FileReader localVer = new FileReader("Version");
