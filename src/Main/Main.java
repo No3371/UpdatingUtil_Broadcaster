@@ -260,7 +260,7 @@ public class Main {
 	}
 
 	public static boolean cmpProcess(String fp) throws IOException {
-		if (oldFile == null)
+		if (oldFile == null || fp == "Version")
 			return false;
 		label.setText("¤ñ¸û" + fp + "»P" + pDir + fp);
 		opt("    ::Comparing: " + fp + " ||| " + pDir + fp);
